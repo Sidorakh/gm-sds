@@ -136,6 +136,7 @@ priority.delete();
 ### Map
 
 | Function | Description |
+|--|--|
 | `Map()` | Wrapped Map constructor |
 | `Map.set(key,value)` | Sets the value in the Map at `key` to `value` |
 | `Map.get(key)` | Gets the value in the Map at `key` |
