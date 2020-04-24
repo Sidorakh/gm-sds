@@ -9,6 +9,7 @@ Wrapped structures:
  - Grid
  - List
  - Map
+ - Iterators
 
 ## Type list
 
@@ -24,7 +25,7 @@ show_debug_message(stack.top());	// outputs "item-1"
 stack.destroy();
 ```
 
-| Function | Description |
+| Member | Description |
 |---|---|
 | `Stack()` | Wrapped Stack constructor |
 | `Stack.size()` | Returns the length of the Stack |
@@ -45,7 +46,7 @@ show_debug_message(queue.top());	// outputs "item-2"
 queue.destroy();
 ```
 
-| Function | Description |
+| Member | Description |
 |---|---|
 | `Queue()` | Wrapped Queue constructor |
 | `Queue.size()` | Returns the length of the Queue |
@@ -116,7 +117,7 @@ priority.delete();
 ```gml
 // TODO: code
 ```
-| Function | Description |
+| Member | Description |
 |--|--|
 |`List([...values])`| Wrapped List constructor, creates a new List with passed in values (or empty if none are passed in) |
 | `List.add(value)` | Adds `value` to the end of the List |
@@ -135,7 +136,7 @@ priority.delete();
 
 ### Map
 
-| Function | Description |
+| Member | Description |
 |--|--|
 | `Map()` | Wrapped Map constructor |
 | `Map.set(key,value)` | Sets the value in the Map at `key` to `value` |
@@ -148,6 +149,47 @@ priority.delete();
 | `Map.clear()` | Removes every entry in the Map |
 | `Map.destroy()` | Destroys the Map |
 
+
+### Iterators
+
+You can also create iterators for use with Maps and Lists
+
+```gml
+var _map = new Map();
+
+_map.set("x","ewfweopfniwefn");
+_map.set("y","jf8923465");
+_map.set("z",1112234242);
+
+var _list = new List(32,4,5,6456,623534,8,763);
+
+var _str = "";
+
+var _map_iter = new Iterator(_map);
+
+while (_map_iter.next() != undefined) {
+	_str += string(_map_iter.key) + " - " + string(_map_iter.value()) + "\n";
+}
+
+var _list_iter = new Iterator(_list);
+
+while (_list_iter.next() !- undefined) {
+	_str += string(_list_iter.value()) + "\n";
+}
+
+show_message(_str);
+
+_list.destroy();
+_map.destroy();
+```
+
+| Member | Description |
+|--|--|
+| `Iterator(map/list)` | Create  a new Iterator over the passed in Struct (must be a wrapped Map or wrapped List |
+| `Iterator.key` | If in a Map iterator, this contains the current key. if in a List iterator, it contains the current index |
+| `Iterator.next()` | Moves the pointer to the next key. Returns `undefined` if each key or index has been returned |
+| `Iterator.value()` | Returns the current value in the iterator |
+| `Iterator.last() ` | Contains the last key or index in an iterator |
 
 ## Helpers
 
@@ -162,8 +204,6 @@ Two helper functions are included to help parse JSON strings
 ----
 Notes: 
  - When nesting lists and maps, try not to mix these structures with the built in counterpartes, this can lead to memory leaks if you don't manage the built in structures properly. 
- - `json_parse` throws n error on failure, you can catch it with a `try..catch` block
- - This function is likely not perfect, so, be aware of this when using it. There may be some edge cases that weren't covered properly
-
-
+ - `json_parse` throws an error on failure, you can catch it in a `try..catch` block (also new in 2.3). On failure, it should clean up any structures it has created. 
+ - The JSON parse function is likely imperfect, so, be aware of this when using it. There may be some edge cases that weren't covered properly
 
