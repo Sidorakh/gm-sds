@@ -5,15 +5,6 @@
 //var _x = json_parse_object(new List(),@'{"a":"b","c":5,"d":[1,2,3,4,5,"44"]}',1);
 //show_message(json_stringify(_x[0]));
 
-function test(a,b,c){
-    if (argument_count < 2) {
-        b=3;
-		c=4;
-    }
-    show_debug_message(string(a) + " - " + string(b) + " - " + string(c));
-}
-test(1);
-test(3,5,8);
 
 var _x = json_parse(@'{"a":"b","c":5,"d":[1,2,3,4,5,"44"]}');
 //var _jstr = @'{"thiswas":"a triumph","making":["note","here",{"hard_to":{"thing":"my satisfaction","action":"overstate"},"done":true,"dead":false}]}';
