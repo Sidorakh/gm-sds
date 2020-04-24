@@ -89,7 +89,7 @@ priority.delete();
 
 | Function | Description |
 |---|---|
-| `Grid(width,height)` | Create Wrapped Grid constructor, creates a new Grid with passed in `width` and `height` |
+| `Grid(width,height)` | Wrapped Grid constructor, creates a new Grid with passed in `width` and `height` |
 | `Grid.width([new_width])` | Changes the Grid width if `new_width` is passed in, then returns the Grid width,  |
 | `Grid.height([new_height])` | Changes the Grid height if `new_height` is passed in, then returns the Grid height |
 | `Grid.resize(new_width,new_height)` | Resizes the grid to `new_width` and `new_height` |
@@ -118,7 +118,7 @@ priority.delete();
 ```
 | Function | Description |
 |--|--|
-|`List([...values])`| Creates a new List with passed in values (or empty if none are passed in) |
+|`List([...values])`| Wrapped List constructor, creates a new List with passed in values (or empty if none are passed in) |
 | `List.add(value)` | Adds `value` to the end of the List |
 | `List.set(index,value)` | Sets the item at position `index` in the List to `value` |
 | `List.get(index)` | Gets the item at position `index` in the List |
@@ -127,15 +127,42 @@ priority.delete();
 | `List.size()` | Returns the list size |
 | `List.remove(index)` | Removes the value at position `index` within the list |
 | `List.filter(cb)` | Returns a new List containing only values that pass the `cb` function. The `cb` function must take arguments in the order `value`,`i`,`list`, and return `true` if the value passes, and `false` otherwise |
-| `List.map(cb)` | Returns a new list with every value passed through the `cb` function. The `cb` fnctino must take arguments in the order `value`,`i`,`list`, and return the new value |
-| `List.foreach(cb)` | Runs the `cb` function on every value ni the List. This function must take arguments in the order `value`,`i`,`list`, and return `true` to break out of the foreach loop early |
+| `List.map(cb)` | Returns a new List with every value passed through the `cb` function. The `cb` function must take arguments in the order `value`,`i`,`list`, and return the new value |
+| `List.foreach(cb)` | Runs the `cb` function on every value in the List. This function must take arguments in the order `value`,`i`,`list`, and return `true` to break out of the foreach loop early |
+| `List.clear()` | Removes every item in the List |
+| `List.destroy()` | Destroys the list, along with any nested List and Map structures |
 
---
-TODO: Maps documentation, code
+
+### Map
+
+| Function | Description |
+| `Map()` | Wrapped Map constructor |
+| `Map.set(key,value)` | Sets the value in the Map at `key` to `value` |
+| `Map.get(key)` | Gets the value in the Map at `key` |
+| `Map.remove(key)` | Removes the entry in Map at `key` |
+| `Map.size()` | Returns the number of entries in the Map |
+| `Map.filter(cb)` | Returns a new Map containing only values that pass the `cb` function. The `cb` function must take arguments in the order `value`,`key`,`Map`, and return `true` if the value passes, and `false` otherwise |
+| `Map.map(cb)` | Returns a new Map with every value passed through the `cb` function. The `cb` function must take arguments in the order `value`,`key`,`map`, and return the new value |
+| `Map.foreach(cb)` | Runs the `cb` function on every value in the Map. This function must take arguments in the order `value`,`key`,`map`, and return `true` to break out of the foreach loop early |
+| `Map.clear()` | Removes every entry in the Map |
+| `Map.destroy()` | Destroys the Map |
 
 
 ## Helpers
 
-Also includes two functions, `json_parse` and `json_stringify` to handle JSON parsing
+Two helper functions are included to help parse JSON strings
+| Function | Description |
+|--|--|
+| `json_parse(json_string)` | Attempts to parse the `json_string`, throws an error if unsuccessful, returns a Map or List if successful (depending on the JSON string) |
+| `json_stringify(sds_list|sds_map)` | Converts a List or Map structure into a JSON string, including any nested SDS structures |
+
+
+
+----
+Notes: 
+ - When nesting lists and maps, try not to mix these structures with the built in counterpartes, this can lead to memory leaks if you don't manage the built in structures properly. 
+ - `json_parse` throws n error on failure, you can catch it with a `try..catch` block
+ - This function is likely not perfect, so, be aware of this when using it. There may be some edge cases that weren't covered properly
+
 
 
