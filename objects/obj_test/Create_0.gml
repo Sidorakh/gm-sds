@@ -10,7 +10,10 @@ var _x = json_parse(@'{"a":"b","c":5,"d":[1,2,3,4,5,"44"]}');
 //var _jstr = @'{"thiswas":"a triumph","making":["note","here",{"hard_to":{"thing":"my satisfaction","action":"overstate"},"done":true,"dead":false}]}';
 //var _x = json_parse(_jstr);
 show_message(json_stringify(_x));
-_x.destroy();
+var _l = _x.get("d");
+show_message(json_stringify(_l));
+_x.destroy(true);
+
 //clipboard_set_text(json_stringify(_x));
 
 

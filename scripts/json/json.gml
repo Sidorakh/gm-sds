@@ -34,7 +34,7 @@ function json_stringify(struct){
 					} else {
 						v = string(v);	
 					}
-					_str += "\"" + string(_iter.key) + ":";
+					_str += "\"" + string(_iter.key) + "\":";
 					_str += string(v);
 					if (_iter.key != _iter.last) {
 						_str += ",";
@@ -102,7 +102,7 @@ function json_parse(json_string){
 		// delete each DS from _list - cleanup
 		for (var i=0;i<_list.size();i++) {
 			if (is_struct(_list.get(i))) {
-				_list.get(i).destroy();	
+				_list.get(i).destroy(true);	
 			}
 		}
 		delete _list;
@@ -288,7 +288,7 @@ function json_parse_object(list,str,i) {
 		a = json_parse_child(list,str,i);
 		val = a[0];
 		i = a[1];
-		new_map.set(key,val);
+		new_map.set(string_copy(key,1,string_length(key)-1),val);
 		// Next token
 		i = json_next_char(str,i,global.JSON_MAP.get("space"),true);
 		var c = string_char_at(str,i);

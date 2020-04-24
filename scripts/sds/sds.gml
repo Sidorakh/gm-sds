@@ -157,23 +157,28 @@ function Grid(_width, _height) constructor {
 function List() constructor {
 	type = ds_type_list;
 	ds = ds_list_create();
-	destroy = function() {
+	destroy = function(shallow) {
+		if (shallow == undefined) {
+			shallow = false;	
+		}
 		if (ds == undefined) {
 			show_error("List does not exist: " + debug_get_callstack(),false);
 		} else {
-			var _iter = new Iterator(self);
-			while (_iter.next() != undefined) {
-				var _item = _iter.value();
-				if (is_struct(_item)) {
-					switch (instanceof(_item)) {
-						case "List":
-						case "Map":
-						case "Grid":
-						case "Queue":
-						case "Priority":
-						case "Stack":
-							_item.destroy();
-						break;
+			if (shallow != false) {
+				var _iter = new Iterator(self);
+				while (_iter.next() != undefined) {
+					var _item = _iter.value();
+					if (is_struct(_item)) {
+						switch (instanceof(_item)) {
+							case "List":
+							case "Map":
+							case "Grid":
+							case "Queue":
+							case "Priority":
+							case "Stack":
+								_item.destroy();
+							break;
+						}
 					}
 				}
 			}
@@ -227,23 +232,28 @@ function List() constructor {
 function Map() constructor {
 	type = ds_type_map;
 	ds = ds_map_create();
-	destroy = function() {
+	destroy = function(shallow) {
+		if (shallow = undefined) {
+			shallow = false;	
+		}
 		if (ds == undefined) {
 			show_error("Map does not exist: " + debug_get_callstack(),false);
 		} else {
-			var _iter = new Iterator(self);
-			while (_iter.next() != undefined) {
-				var _item = _iter.value();
-				if (is_struct(_item)) {
-					switch (instanceof(_item)) {
-						case "List":
-						case "Map":
-						case "Grid":
-						case "Queue":
-						case "Priority":
-						case "Stack":
-							_item.destroy();
-						break;
+			if (shallow != false) {
+				var _iter = new Iterator(self);
+				while (_iter.next() != undefined) {
+					var _item = _iter.value();
+					if (is_struct(_item)) {
+						switch (instanceof(_item)) {
+							case "List":
+							case "Map":
+							case "Grid":
+							case "Queue":
+							case "Priority":
+							case "Stack":
+								_item.destroy();
+							break;
+						}
 					}
 				}
 			}
