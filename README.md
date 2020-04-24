@@ -155,7 +155,7 @@ Two helper functions are included to help parse JSON strings
 | Function | Description |
 |--|--|
 | `json_parse(json_string)` | Attempts to parse the `json_string`, throws an error if unsuccessful, returns a Map or List if successful (depending on the JSON string) |
-| `json_stringify(sds_list|sds_map)` | Converts a List or Map structure into a JSON string, including any nested SDS structures |
+| `json_stringify(sds_list/sds_map)` | Converts a List or Map structure into a JSON string, including any nested SDS structures |
 
 
 
