@@ -131,7 +131,7 @@ function Grid(_width, _height) constructor {
 		var _nds = new Grid(__width,__height);
 		for (var _x=0;_x<__width;_x++) {
 			for (var _y=0;_y<__width;_y++) {
-				_nds.set(_x,_y,ds[# x,y],self);
+				_nds.set(_x,_y,cb(ds[# x,y],_x,_y,self));
 			}
 		}
 		return _nds;
@@ -190,6 +190,7 @@ function List() constructor {
     size = function() { return ds_list_size(ds); };
     mark_list = function(i) { ds_list_mark_as_list(ds, i); };
     mark_map = function(i) { ds_list_mark_as_map(ds,i); };
+	remove = function(i) { ds_list_delete(ds,i) };
 	
 	foreach = function(cb) {
 		for (var i=0,s=size();i<s;i++) {
@@ -293,7 +294,13 @@ function Iterator(bds) constructor {
 	key = undefined;
 	next = undefined;
 	value = undefined;
-	last = undefined;
+	last = function() {
+		if (type == ds_type_list) {
+			return ds.size()-1;
+		} else if (type == ds_type_map) {
+			return ds_map_find_last(ds.ds);
+		}
+	}
 	_next_list = function() {
 		if (key==undefined) {
 			key = 0;
@@ -322,12 +329,10 @@ function Iterator(bds) constructor {
 	if (type == ds_type_list) {
 		key = undefined;
 		next = _next_list;
-		last = ds.size();
 		value = _value_list;
 	} else if (type == ds_type_map) {
 		key = undefined;
 		next = _next_map;
-		last = ds_map_find_last(ds.ds);
 		value = _value_map;
 	}
 }
