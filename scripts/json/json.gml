@@ -36,7 +36,7 @@ function json_stringify(struct){
 					}
 					_str += "\"" + string(_iter.key) + "\":";
 					_str += string(v);
-					if (_iter.key != _iter.last) {
+					if (_iter.key != _iter.last()) {
 						_str += ",";
 					}
 				}

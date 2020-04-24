@@ -205,20 +205,32 @@ function List() constructor {
 		}
 	}
 	
-	map = function(cb) {
+	map = function(cb,remove) {
+		if (remove == undefined) {
+			remove = false;	
+		}
 		var _nds = new List();
 		for (var i=0,s=size();i<s;i++) {
 			_nds.add(cb(ds[| i], i, self));
 		}
+		if (remove) {
+			self.destroy(true);
+		}
 		return _nds;
 	}
 	
-	filter = function(cb) {
+	filter = function(cb,remove) {
+		if (remove == undefined) {
+			remove = false;	
+		}
 		var _nds = List();
 		for (var i=0,s=size();i<s;i++) {
 			if (cb(ds[| i],i,self) == true) {
 				_nds.add(ds[| i]);	
 			}
+		}
+		if (remove) {
+			self.destroy(true);	
 		}
 	}
 	
@@ -276,12 +288,18 @@ function Map() constructor {
 			k = ds_map_find_next(ds,_k);
 		}
 	};
-	map = function(cb) {
+	map = function(cb,remove) {
+		if (remove == undefined) {
+			remove = false;	
+		}
 		var _k = ds_map_find_first(ds);
 		var _nds = Map();
 		while (_k != undefined) {
 			_nds.set(_k,cb(ds[? _k], _k, self));
 			k = ds_map_find_next(ds,_k);
+		}
+		if (remove) {
+			self.destroy();	
 		}
 		return _nds;
 	}
