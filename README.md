@@ -81,11 +81,61 @@ priority.delete();
 | `Priority.destroy()` | Destroys the Priority Queue |
 
 ----
-..WIP
 
-###
+### Grid
+```gml
+// TODO: code
+```
+
+| Function | Description |
+|---|---|
+| `Grid(width,height)` | Create Wrapped Grid constructor, creates a new Grid with passed in `width` and `height` |
+| `Grid.width([new_width])` | Changes the Grid width if `new_width` is passed in, then returns the Grid width,  |
+| `Grid.height([new_height])` | Changes the Grid height if `new_height` is passed in, then returns the Grid height |
+| `Grid.resize(new_width,new_height)` | Resizes the grid to `new_width` and `new_height` |
+| `Grid.shuffle()` | Shuffles the entries in the Grid |
+| `Grid.sort(column,ascending)` | Sorts the entries in a Grid by a column, if `ascending` is true, in ascending order, otherwise, descending |
+| `Grid.set(x,y,value)` | Set the value in the Grid at the position (`x,y`) |
+| `Grid.get(x,y)` | Returns the value in the Grid at (`x,y`) |
+| `Grid.get_max(x1,y1,x2,y2)` | Returns the maximum value in the Grid region defined by (`x1,y1,x2,y2`) |
+| `Grid.get_min(x1,y1,x2,y2)` | Returns the minimum value in the Grid region defined by (`x1,y1,x2,y2`) |
+| `Grid.get_mean(x1,y1,x2,y2)` | Returns the mean of all values in the Grid region defined by (`x1,y1,x2,y2`) |
+| `Grid.get_sum(x1,y1,x2,y2)` | Returns the sum of all values in the Grid region defined by (`x1,y1,x2,y2`) |
+| `Grid.get_max_disk(x,y,r)` | Returns the maximum value in the circular Grid region defined by (`x,y,r`) |
+| `Grid.get_min_disk(x,y,r)` | Returns the minimum value in the circular Grid region defined by (`x,y,r`) |
+| `Grid.get_mean_disk(x,y,r)` | Returns the mean of all values in the circular Grid region defined by (`x,y,r`) |
+| `Grid.get_sum_disk(x,y,r)` | Returns the sum of all values in the circular Grid region defined by (`x,y,r`) |
+| `Grid.filter(cb)` | Returns a new Grid containing only values that pass the `cb` function passed in. The `cb` function must take arguments in the order `value`,`x`,`y`,`grid`, and return `true` if the value passes, and `false` otherwise|
+| `Grid.map(cb)` | Returns a new Grid with every entry passed through the `cb` function. The `cb` function must take arguments in the order `value`,`x`,`y`,`grid`, and return the new value |
+| `Grid.foreach(cb)` | Runs the `cb` function on every value in the Grid. this function must take arguments in the order `value`,`x`,`y`,`grid`, and return `true` to break out of the foreach loop early |
+| `Grid.clear()` | Clears every item in the Grid |
+| `Grid.destroy()` | Destroys the Grid |
+
+### List
+
+```gml
+// TODO: code
+```
+| Function | Description |
+|--|--|
+|`List([...values])`| Creates a new List with passed in values (or empty if none are passed in) |
+| `List.add(value)` | Adds `value` to the end of the List |
+| `List.set(index,value)` | Sets the item at position `index` in the List to `value` |
+| `List.get(index)` | Gets the item at position `index` in the List |
+| `List.insert(index,value)` | Inserts `value` at `index` in the List |
+| `List.sort(ascending)` | Sorts the List in ascending order if `ascending` is true, descending otherwise |
+| `List.size()` | Returns the list size |
+| `List.remove(index)` | Removes the value at position `index` within the list |
+| `List.filter(cb)` | Returns a new List containing only values that pass the `cb` function. The `cb` function must take arguments in the order `value`,`i`,`list`, and return `true` if the value passes, and `false` otherwise |
+| `List.map(cb)` | Returns a new list with every value passed through the `cb` function. The `cb` fnctino must take arguments in the order `value`,`i`,`list`, and return the new value |
+| `List.foreach(cb)` | Runs the `cb` function on every value ni the List. This function must take arguments in the order `value`,`i`,`list`, and return `true` to break out of the foreach loop early |
+
+--
+TODO: Maps documentation, code
+
 
 ## Helpers
 
 Also includes two functions, `json_parse` and `json_stringify` to handle JSON parsing
+
 
