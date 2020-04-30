@@ -4,7 +4,8 @@
 //var _x = json_parse_array(new List(),"[1,2,3,4,5,6,7,8,9],",1);//get_string("","\"\\\"abcdef\\\"\\nxxxx\\nyyyy\","),1);
 //var _x = json_parse_object(new List(),@'{"a":"b","c":5,"d":[1,2,3,4,5,"44"]}',1);
 //show_message(json_stringify(_x[0]));
-
+var buff = new Buffer(100,buffer_grow,1);
+buff.write(buffer_text,"triumph!");
 
 var _x = json_parse(@'{"a":"b","c":5,"d":[1,2,3,4,5,"44"]}');
 //var _jstr = @'{"thiswas":"a triumph","making":["note","here",{"hard_to":{"thing":"my satisfaction","action":"overstate"},"done":true,"dead":false}]}';

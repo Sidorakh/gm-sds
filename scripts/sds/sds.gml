@@ -364,3 +364,14 @@ function Iterator(bds) constructor {
 		value = _value_map;
 	}
 }
+
+function Buffer(_size,_type,_alignment) constructor {
+	buffer = buffer_create(_size,_type,_alignment);
+	type = _type;
+	size = function() {
+		return buffer_get_size(buffer);	
+	};
+	write = function(__type,__value) {
+		buffer_write(buffer,__type,__value);
+	}
+}

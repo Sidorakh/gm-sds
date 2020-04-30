@@ -1,0 +1,24 @@
+{
+  "name": "@gm/sidorakh.gm-sds",
+  "version": "1.0.0",
+  "description": "Struct-based Data-Structure wrappers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sidorakh/gm-sds.git"
+  },
+  "keywords": [
+    "ds",
+    "structures",
+    "data"
+  ],
+  "author": "Andrew \"Sidorakh\" Rutherford",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sidorakh/gm-sds/issues"
+  },
+  "homepage": "https://github.com/Sidorakh/gm-sds#readme"
+}
