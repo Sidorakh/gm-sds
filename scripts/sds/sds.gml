@@ -371,7 +371,57 @@ function Buffer(_size,_type,_alignment) constructor {
 	size = function() {
 		return buffer_get_size(buffer);	
 	};
-	write = function(__type,__value) {
-		buffer_write(buffer,__type,__value);
+	read = function(_type) {
+		return buffer_read(buffer,_type);	
 	}
+	write = function(_type,_value) {
+		buffer_write(buffer,_type,_value);
+	}
+	fill = function(_offset,_type,_value,_size){
+		buffer_fill(buffer,_offset,_type,_value,_size);
+	}
+	seek = function(_base,_offset) {
+		buffer_seek(buffer,_base,_offset);
+	}
+	tell = function() {
+		return buffer_tell(buffer)
+	}
+	peek = function(_offset,_type) {
+		return buffer_peek(buffer,_offset,_type);
+	}
+	poke = function(_offset,_type,_value) {
+		buffer_poke(buffer,_offset,_type,_value);	
+	}
+	compress = function(_offset,_size) {
+		return buffer_from(buffer_compress(buffer,_offset,_size));
+		
+	}
+	decompress = function(_offset,_size) {
+		return buffer_from(buffer_decompress(buffer));
+	}
+	copy = function(_src_buffer,_src_offset,_size,_dest_offset) {
+		buffer_copy(_src_buffer,_src_offset,_size,buffer,_dest_offset);
+	}
+	resize = function(_size) {
+		buffer_resize(buffer,_size);
+	}
+	address = function() {
+		return buffer_get_address(buffer);
+	}
+	
 }
+
+
+function buffer_from(buff) {
+	var _buff = new Buffer(buffer_get_size(buff),buffer_get_type(buff),buffer_get_alignment(buff));
+	_buff.copy(buff,0,buffer_get_size(buff),0);
+}
+/*
+function Surface(_width,_height) constructor {
+	width = width;
+	height = height;
+	buffer_size = width*height*4;
+	surface = surface_create(width,height);
+	buffer = new Buffer(buffer_size,buffer_fixed,1);	
+}
+*/
