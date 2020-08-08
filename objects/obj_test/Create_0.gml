@@ -1,19 +1,29 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+var _list = new List(4,5,76,2);
+show_message(json_stringify(_list.add(4).sort(function(e1,e2){
+	if (e1 < e2) {
+		return -1;	
+	}
+	if (e1 > e2) {
+		return 1;
+	}
+	return 0;
+}).reverse()));
 //var _x = json_parse_array(new List(),"[1,2,3,4,5,6,7,8,9],",1);//get_string("","\"\\\"abcdef\\\"\\nxxxx\\nyyyy\","),1);
 //var _x = json_parse_object(new List(),@'{"a":"b","c":5,"d":[1,2,3,4,5,"44"]}',1);
 //show_message(json_stringify(_x[0]));
-var buff = new Buffer(100,buffer_grow,1);
-buff.write(buffer_text,"triumph!");
+//var buff = new Buffer(100,buffer_grow,1);
+//buff.write(buffer_text,"triumph!");
 
-var _x = json_parse(@'{"a":"b","c":5,"d":[1,2,3,4,5,"44"]}');
+//var _x = json_parse(@'{"a":"b","c":5,"d":[1,2,3,4,5,"44"]}');
 //var _jstr = @'{"thiswas":"a triumph","making":["note","here",{"hard_to":{"thing":"my satisfaction","action":"overstate"},"done":true,"dead":false}]}';
 //var _x = json_parse(_jstr);
-show_message(json_stringify(_x));
-var _l = _x.get("d");
-show_message(json_stringify(_l));
-_x.destroy(true);
+//show_message(json_stringify(_x));
+//var _l = _x.get("d");
+//show_message(json_stringify(_l));
+//_x.destroy(true);
 
 //clipboard_set_text(json_stringify(_x));
 

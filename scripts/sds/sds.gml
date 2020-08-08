@@ -186,16 +186,42 @@ function List() constructor {
 		}
 		ds = undefined;
 	}
-    get = function(i) { return ds[| i]};
-    set = function(i,v) { ds[| i] = v; };
-    add = function(v) { ds_list_add(ds,v); };
-    insert = function(i, v) { ds_list_insert(ds, i, v); };
-    shuffle = function() { ds_list_shuffle(ds); };
-    sort = function(ascending) { ds_list_sort(ds,ascending); };
-    size = function() { return ds_list_size(ds); };
-    mark_list = function(i) { ds_list_mark_as_list(ds, i); };
-    mark_map = function(i) { ds_list_mark_as_map(ds,i); };
-	remove = function(i) { ds_list_delete(ds,i) };
+    get = function(i) { return ds[| i]; return self;};
+    set = function(i,v) { ds[| i] = v; return self;};
+    add = function(v) { ds_list_add(ds,v); return self;};
+    insert = function(i, v) { ds_list_insert(ds, i, v); return self;};
+    shuffle = function() { ds_list_shuffle(ds); return self;};
+    size = function() { return ds_list_size(ds); return self;};
+    mark_list = function(i) { ds_list_mark_as_list(ds, i); return self;};
+    mark_map = function(i) { ds_list_mark_as_map(ds,i); return self;};
+	remove = function(i) { ds_list_delete(ds,i) return self;};
+    sort = function(cb) {
+		if (cb != undefined) {
+			var len = size();
+			for (var i=1;i<len;i++) {
+				var elem = ds[| i];
+				var j = i-1;
+				while (j>=0 && cb(ds[| j],elem) > 0) {
+					ds[| j+1] = ds[| j];
+					j--;
+				}
+				ds[| j+1] = elem;
+			}
+		} else {
+			ds_list_sort(ds,true); return self;
+		}
+		return self;
+	};
+	reverse = function() {
+		var len = size();
+		for (var i=0;i<floor(len/2);i++) {
+			var _v1 = ds[| i];
+			var _v2 = ds[| (len-1)-i];
+			ds[| i] = _v2;
+			ds[| (len-1)-i] = _v1;
+		}
+		return self;
+	}
 	
 	foreach = function(cb) {
 		for (var i=0,s=size();i<s;i++) {
@@ -203,6 +229,7 @@ function List() constructor {
 				break;	
 			}
 		}
+		return self;
 	}
 	
 	map = function(cb,remove) {
@@ -274,9 +301,9 @@ function Map() constructor {
 		ds = undefined;
 	}
 	get = function(key) { return ds[? key]; };
-	set = function(key,val) { ds[? key] = val; };
-	clear = function() { ds_map_clear(ds); };
-	remove = function(key) { ds_map_delete(ds,key); };
+	set = function(key,val) { ds[? key] = val; return self;};
+	clear = function() { ds_map_clear(ds); return self;};
+	remove = function(key) { ds_map_delete(ds,key); return self;};
 	size = function() { return ds_map_size(ds); };
 	
 	foreach = function() {
@@ -394,7 +421,6 @@ function Buffer(_size,_type,_alignment) constructor {
 	}
 	compress = function(_offset,_size) {
 		return buffer_from(buffer_compress(buffer,_offset,_size));
-		
 	}
 	decompress = function(_offset,_size) {
 		return buffer_from(buffer_decompress(buffer));
@@ -402,11 +428,38 @@ function Buffer(_size,_type,_alignment) constructor {
 	copy = function(_src_buffer,_src_offset,_size,_dest_offset) {
 		buffer_copy(_src_buffer,_src_offset,_size,buffer,_dest_offset);
 	}
+	save_surface = function(_surf,_offset,_mod) {
+		if (is_struct(_surf)){	// assume surface instance
+			_surf = _surf.surface;
+		}
+		buffer_get_surface(buffer,_surf,buffer_surface_copy,_offset,_mod);
+	}
+	load_surface = function(_surf,_offset,_mod) {
+		if (is_struct(_surf)) {
+			_surf = _surf.surface;	
+		}
+		buffer_set_surface(buffer,_surf,0,_offset,_mod);
+	}
 	resize = function(_size) {
 		buffer_resize(buffer,_size);
 	}
 	address = function() {
 		return buffer_get_address(buffer);
+	}
+	b64_encode = function(_offset,_size) {
+		return buffer_base64_encode(buffer,_offset,_size);
+	}
+	static b64_decode = function(_string) {
+		return buffer_from(buffer_base64_decode(_string));
+	}
+	md5 = function(_offset,_size) {
+		return buffer_md5(buffer,_offset,_size);
+	}
+	sha1 = function(_offset,_size) {
+		return buffer_sha1(buffer,_offset,_size);	
+	}
+	crc32 = function(_offset,_size) {
+		return buffer_crc32(buffer,_offset,_size);
 	}
 	
 }
@@ -416,12 +469,14 @@ function buffer_from(buff) {
 	var _buff = new Buffer(buffer_get_size(buff),buffer_get_type(buff),buffer_get_alignment(buff));
 	_buff.copy(buff,0,buffer_get_size(buff),0);
 }
+
 /*
 function Surface(_width,_height) constructor {
 	width = width;
 	height = height;
 	buffer_size = width*height*4;
 	surface = surface_create(width,height);
-	buffer = new Buffer(buffer_size,buffer_fixed,1);	
+	buffer = new Buffer(buffer_size,buffer_fixed,1);
+	
 }
-*/
+//*/
