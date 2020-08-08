@@ -124,7 +124,7 @@ priority.delete();
 | `List.set(index,value)` | Sets the item at position `index` in the List to `value` |
 | `List.get(index)` | Gets the item at position `index` in the List |
 | `List.insert(index,value)` | Inserts `value` at `index` in the List |
-| `List.sort(ascending)` | Sorts the List in ascending order if `ascending` is true, descending otherwise |
+| `List.sort(cb)` | If `cb` is not passed in, the list is sorted in ascendign order. Otherwise, `cb` is a comparison function, defined as `function(a,b)`. If `b` is larger than `a`, `1` should be returned, if they are equal, `0` should be returned, and if `a` is greater than `b`, `-1` should be returned. |
 | `List.size()` | Returns the list size |
 | `List.remove(index)` | Removes the value at position `index` within the list |
 | `List.filter(cb)` | Returns a new List containing only values that pass the `cb` function. The `cb` function must take arguments in the order `value`,`i`,`list`, and return `true` if the value passes, and `false` otherwise |
