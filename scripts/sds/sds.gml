@@ -14,8 +14,9 @@ function Stack() constructor {
 	};
     top = function() { return ds_stack_top(ds); };
     pop = function() { return ds_stack_pop(ds); };
-    push = function(val) { ds_stack_push(ds,val); };
+    push = function(val) { ds_stack_push(ds,val); return self; };
     size = function() { return ds_stack_size(ds); };
+	clear = function() { ds_stack_clear(ds); return self; }
 	if (argument_count > 0) {
 		for (var i=0;i<argument_count;i++) {
 			push(argument[i]);
@@ -36,8 +37,9 @@ function Queue() constructor {
 	};
     top = function() { return ds_queue_head(ds); };
     pop = function() { return ds_queue_dequeue(ds); };
-    push = function(val) { ds_queue_enqueue(ds,val); };
+    push = function(val) { ds_queue_enqueue(ds,val); return self;  };
     size = function() { return ds_queue_size(ds); };
+	clear = function() { ds_queue_clear(ds); return self; }
 	if (argument_count > 0) {
 		for (var i=0;i<argument_count;i++) {
 			push(argument[i]);
@@ -57,9 +59,9 @@ function PriorityQueue() constructor {
 		}
 		ds = undefined;
 	};
-    clear = function() { ds_priority_clear(ds); };
+    clear = function() { ds_priority_clear(ds); return self; };
     size = function() { return ds_priority_size(ds); };
-    add = function(val,priority) { ds_priority_add(ds,val,priority); }; 
+    add = function(val,priority) { ds_priority_add(ds,val,priority); return self; }; 
     get_min = function() { return ds_priority_find_min(ds); };
     get_max = function() { return ds_priority_find_max(ds); };
     delete_min = function() { return ds_priority_delete_min(ds); };
@@ -95,14 +97,16 @@ function Grid(_width, _height) constructor {
 		__width = _w;
 		__height = _h;
 		ds_grid_resize(ds,_w,_h);
+		return self; 
 	}
     clear  = function() {
 		var _v = argument_count == 1 ? argument[0] : 0;
 		ds_grid_clear(ds,_v);
+		return self; 
 	};
-    shuffle = function() { ds_grid_shuffle(ds); };
-    sort = function(column,ascending) { ds_grid_sort(ds,column,ascending); };
-    set = function(x,y,v) { ds[# x,y] = v; };
+    shuffle = function() { ds_grid_shuffle(ds); return self; };
+    sort = function(column,ascending) { ds_grid_sort(ds,column,ascending); return self; };
+    set = function(x,y,v) { ds[# x,y] = v; return self; };
     get = function(x,y) { return ds[# x,y]; };
     get_max = function(x1,y1,x2,y2) { return ds_grid_get_max(ds,x1,y1,x2,y2); };
     get_min = function(x1,y1,x2,y2) { return ds_grid_get_min(ds,x1,y1,x2,y2); };
@@ -113,7 +117,10 @@ function Grid(_width, _height) constructor {
     get_mean_disk = function(x,y,r) { return ds_grid_get_disk_mean(ds,x,y,r); };
     get_sum_disk = function(x,y,r) { return ds_grid_get_disk_sum(ds,x,y,r); };
 	
-	filter = function (cb) {
+	filter = function (cb,remove) {
+		if (remove==undefined) {
+			remove = false;
+		}
 		var _nds = new Grid(__width,__height);
 		for (var _x=0;_x<__width;_x++) {
 			for (var _y=0;_y<__width;_y++) {
@@ -123,6 +130,9 @@ function Grid(_width, _height) constructor {
 					_nds.set(_x,_y,undefined);
 				}
 			}
+		}
+		if (remove) {
+			self.destroy();	
 		}
 		return _nds;
 	};
