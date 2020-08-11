@@ -173,7 +173,7 @@ while (_map_iter.next() != undefined) {
 
 var _list_iter = new Iterator(_list);
 
-while (_list_iter.next() !- undefined) {
+while (_list_iter.next() != undefined) {
 	_str += string(_list_iter.value()) + "\n";
 }
 
